@@ -58,10 +58,13 @@ class App extends Component {
     this.setState({timeLeft: newTimeLeft * 60});
   }
 
+  timerDone() {
+    this.setState({isBreakTime: !this.state.isBreakTime}, this.resetTimer);
+  }
+
   tick() {
     if (this.state.timeLeft === 0) {
-      this.pauseTimer();
-      console.log('timer done');
+      this.timerDone();
       return;
     }
     this.setState({timeLeft: this.state.timeLeft - 1});
