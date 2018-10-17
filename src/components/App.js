@@ -18,6 +18,8 @@ class App extends Component {
     this.tick = this.tick.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.pauseTimer = this.pauseTimer.bind(this);
+    this.resetTimer = this.resetTimer.bind(this);
+    this.timerDone = this.timerDone.bind(this);
   }
 
   incrementLength(lengthName) {
@@ -53,7 +55,7 @@ class App extends Component {
       this.pauseTimer();
     }
 
-    //set timer back to startign value
+    //set timer back to starting value
     const newTimeLeft = this.state.isBreakTime ? this.state.breakTimeLength : this.state.workTimeLength;
     this.setState({timeLeft: newTimeLeft * 60});
   }
@@ -71,7 +73,6 @@ class App extends Component {
   }
 
   handlePlayButtonClick() {
-    //set/delete interval based on context
     if (this.state.isPaused) {
       this.startTimer();
     } else {
