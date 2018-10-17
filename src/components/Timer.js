@@ -8,6 +8,8 @@ class Timer extends Component {
       timeLeft: this.props.defaultLength, //stores time in seconds
       isPaused: true
     };
+
+    this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
   }
 
   formatValue(value) {
@@ -19,15 +21,20 @@ class Timer extends Component {
     return formatted;
   }
 
+  handlePlayButtonClick() {
+    this.setState({isPaused: !this.state.isPaused});
+  }
+
   render() {
     const timeLeft = this.state.timeLeft;
     const minutesLeft = this.formatValue(parseInt(timeLeft / 60));
     const secondsLeft = this.formatValue(timeLeft % 60);
 
+    const playButtonSymbol = this.state.isPaused ? "Start" : "Pause";
     return (
       <div>
         <div>{minutesLeft}:{secondsLeft}</div>
-        <button>Start/Pause</button>
+        <button onClick={this.handlePlayButtonClick}>{playButtonSymbol}</button>
         <button>restart</button>
       </div>
     );
