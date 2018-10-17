@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Timer from './Timer.js';
 import Incrementor from './Incrementor.js';
+import '../css/App.css';
 
 class App extends Component {
   constructor(props) {
@@ -106,34 +107,37 @@ class App extends Component {
   render() {
     const pointerEvents = this.state.isPaused ? 'auto' : 'none';
     return (
-      <div>
+      <div id="app">
           <h1>Pomodoro Timer</h1>
           <h3 id="timer-label">{this.state.isBreakTime ? "Time to relax!" : "Time to work!"}</h3>
           <Timer
+            className="border"
             timeLeft={this.state.timeLeft}
             isPaused={this.state.isPaused}
             onPlayButtonClick={this.handlePlayButtonClick}
             onResetButtonClick={this.handleResetButtonClick}/>
-          <span id="session-label">
-            Work Length:
-           <Incrementor
-            id="session"
-            changeable={this.state.isPaused}
-            value={this.state.workTimeLength}
-            onIncrement={this.incrementLength.bind(this, 'workTimeLength')}
-            onDecrement={this.decrementLength.bind(this, 'workTimeLength')}
-            />
-          </span>
-          <span id="break-label">
-            Break Length:
-            <Incrementor
-              id="break"
-              changeable={this.state.isPaused}
-              value={this.state.breakTimeLength}
-              onIncrement={this.incrementLength.bind(this, 'breakTimeLength')}
-              onDecrement={this.decrementLength.bind(this, 'breakTimeLength')}
-              />
-          </span>
+          <div className="controls">
+            <div className="controls border">
+              <p id="session-label">Work Length:</p>
+              <Incrementor
+               id="session"
+               changeable={this.state.isPaused}
+               value={this.state.workTimeLength}
+               onIncrement={this.incrementLength.bind(this, 'workTimeLength')}
+               onDecrement={this.decrementLength.bind(this, 'workTimeLength')}
+               />
+            </div>
+            <div className="controls border">
+              <p id="break-label" >Break Length:</p>
+              <Incrementor
+                id="break"
+                changeable={this.state.isPaused}
+                value={this.state.breakTimeLength}
+                onIncrement={this.incrementLength.bind(this, 'breakTimeLength')}
+                onDecrement={this.decrementLength.bind(this, 'breakTimeLength')}
+                />
+            </div>
+          </div>
           <audio id="beep">
             <source
               src="http://www.orangefreesounds.com/wp-content/uploads/2017/11/Short-beep-noise.mp3"

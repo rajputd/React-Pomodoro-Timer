@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import '../css/Timer.css';
 
 class Timer extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class Timer extends Component {
     const playButtonSymbol = this.props.isPaused ? "Start" : "Pause";
 
     return (
-      <div>
+      <div className={this.props.className} id="timer">
         <div id="time-left">{minutesLeft}:{secondsLeft}</div>
         <button
           id="start_stop"

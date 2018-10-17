@@ -1,0 +1,48 @@
+body {
+  background-color: #242428;
+  color: #F7F7F7;
+}
+
+body h1, h3 {
+  font-family: 'Lato';
+}
+
+body p, buttons {
+  font-family: 'Roboto Slab';
+}
+
+button {
+  border-radius: 5px;
+  background-color: inherit;
+  color: inherit;
+}
+
+button:hover {
+  background-color: #F7F7F7;
+  color: #242428;
+}
+
+#app {
+  margin: auto;
+  text-align: center;
+}
+
+#session {
+  /* display: inline-block; */
+}
+
+buttons {
+  border-radius: 5px;
+}
+
+.controls > * {
+  margin: 5px;
+  padding: 5px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.border {
+  border: 3px solid #B4BCB8;
+  border-radius: 5px;
+}

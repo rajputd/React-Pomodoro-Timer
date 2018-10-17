@@ -1,0 +1,14 @@
+#timer {
+  width: 25%;
+  margin: auto;
+  padding: 20px;
+}
+
+#timer button {
+  margin: 5px;
+}
+
+#time-left {
+  font-size: 4em;
+  font-family: 'Lato';
+}
