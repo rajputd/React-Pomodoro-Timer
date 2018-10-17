@@ -10,6 +10,7 @@ class Timer extends Component {
     };
 
     this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
+    this.tick = this.tick.bind(this);
   }
 
   formatValue(value) {
@@ -21,7 +22,22 @@ class Timer extends Component {
     return formatted;
   }
 
+  tick() {
+    if (this.state.timeLeft === 0) {
+      console.log('timer done');
+      return;
+    }
+    this.setState({timeLeft: this.state.timeLeft - 1});
+  }
+
   handlePlayButtonClick() {
+    //set/delete interval based on context
+    if (this.state.isPaused) {
+      this.intervalID = setInterval(this.tick, 1000);
+    } else {
+      clearInterval(this.intervalID);
+    }
+
     this.setState({isPaused: !this.state.isPaused});
   }
 
