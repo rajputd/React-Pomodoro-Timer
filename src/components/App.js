@@ -47,6 +47,17 @@ class App extends Component {
     this.setState({isPaused: true});
   }
 
+  resetTimer() {
+    //clear interval if timer is still running
+    if (!this.state.isPaused) {
+      this.pauseTimer();
+    }
+
+    //set timer back to startign value
+    const newTimeLeft = this.state.isBreakTime ? this.state.breakTimeLength : this.state.workTimeLength;
+    this.setState({timeLeft: newTimeLeft * 60});
+  }
+
   tick() {
     if (this.state.timeLeft === 0) {
       this.pauseTimer();
@@ -66,12 +77,7 @@ class App extends Component {
   }
 
   handleResetButtonClick() {
-    //clear interval if timer is still running
-    if (!this.state.isPaused) {
-      clearInterval(this.intervalID);
-    }
-    const newTimeLeft = this.state.isBreakTime ? this.state.breakTimeLength : this.state.workTimeLength;
-    this.setState({timeLeft: newTimeLeft * 60, isPaused: true});
+    this.resetTimer();
   }
 
   render() {
