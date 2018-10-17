@@ -16,6 +16,8 @@ class App extends Component {
     this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
     this.handleResetButtonClick = this.handleResetButtonClick.bind(this);
     this.tick = this.tick.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.pauseTimer = this.pauseTimer.bind(this);
   }
 
   incrementLength(lengthName) {
@@ -35,9 +37,19 @@ class App extends Component {
     this.setState(newState);
   }
 
+  startTimer() {
+    this.intervalID = setInterval(this.tick, 1000);
+    this.setState({isPaused: false});
+  }
+
+  pauseTimer() {
+    clearInterval(this.intervalID);
+    this.setState({isPaused: true});
+  }
 
   tick() {
     if (this.state.timeLeft === 0) {
+      this.pauseTimer();
       console.log('timer done');
       return;
     }
@@ -47,12 +59,10 @@ class App extends Component {
   handlePlayButtonClick() {
     //set/delete interval based on context
     if (this.state.isPaused) {
-      this.intervalID = setInterval(this.tick, 1000);
+      this.startTimer();
     } else {
-      clearInterval(this.intervalID);
+      this.pauseTimer();
     }
-
-    this.setState({isPaused: !this.state.isPaused});
   }
 
   handleResetButtonClick() {
