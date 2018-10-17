@@ -31,11 +31,12 @@ class App extends Component {
   }
 
   render() {
+    const defaultLength = (this.state.isBreakTime ? this.state.workTimeLength : this.state.workTimeLength) * 60;
     return (
       <div>
           <h1>Pomodoro Timer</h1>
           <h3>{this.state.isBreakTime ? "Time to relax!" : "Time to work!"}</h3>
-          <Timer />
+          <Timer defaultLength={defaultLength}/>
           <span>
             Work Length:
            <Incrementor
