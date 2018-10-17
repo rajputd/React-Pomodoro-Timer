@@ -20,7 +20,17 @@ class App extends Component {
     this.pauseTimer = this.pauseTimer.bind(this);
     this.resetTimer = this.resetTimer.bind(this);
     this.timerDone = this.timerDone.bind(this);
+    this.playBeep = this.playBeep.bind(this);
   }
+
+  componentDidMount() {
+    this.beep = document.getElementById("beep");
+  }
+
+  playBeep() {
+    this.beep.play();
+  }
+
 
   incrementLength(lengthName) {
     let newState = {};
@@ -67,6 +77,7 @@ class App extends Component {
 
   timerDone() {
     this.setState({isBreakTime: !this.state.isBreakTime}, () => {
+        this.playBeep();
         this.resetTimer();
         this.startTimer();
     });
@@ -123,6 +134,11 @@ class App extends Component {
               onDecrement={this.decrementLength.bind(this, 'breakTimeLength')}
               />
           </span>
+          <audio id="beep">
+            <source
+              src="http://www.orangefreesounds.com/wp-content/uploads/2017/11/Short-beep-noise.mp3"
+              type="audio/mpeg" />
+          </audio>
       </div>
     );
   }
