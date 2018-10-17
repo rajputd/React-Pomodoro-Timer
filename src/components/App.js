@@ -8,9 +8,14 @@ class App extends Component {
     this.state = {
       isBreakTime: false,
       workTimeLength: 25,
-      breakTimeLength: 5
+      breakTimeLength: 5,
+      timeLeft: 25 * 60,
+      isPaused: true
     };
 
+    this.handlePlayButtonClick = this.handlePlayButtonClick.bind(this);
+    this.handleResetButtonClick = this.handleResetButtonClick.bind(this);
+    this.tick = this.tick.bind(this);
   }
 
   incrementLength(lengthName) {
@@ -30,13 +35,45 @@ class App extends Component {
     this.setState(newState);
   }
 
+
+  tick() {
+    if (this.state.timeLeft === 0) {
+      console.log('timer done');
+      return;
+    }
+    this.setState({timeLeft: this.state.timeLeft - 1});
+  }
+
+  handlePlayButtonClick() {
+    //set/delete interval based on context
+    if (this.state.isPaused) {
+      this.intervalID = setInterval(this.tick, 1000);
+    } else {
+      clearInterval(this.intervalID);
+    }
+
+    this.setState({isPaused: !this.state.isPaused});
+  }
+
+  handleResetButtonClick() {
+    //clear interval if timer is still running
+    if (!this.state.isPaused) {
+      clearInterval(this.intervalID);
+    }
+    const newTimeLeft = this.state.isBreakTime ? this.state.breakTimeLength : this.state.workTimeLength;
+    this.setState({timeLeft: newTimeLeft * 60, isPaused: true});
+  }
+
   render() {
-    const defaultLength = (this.state.isBreakTime ? this.state.workTimeLength : this.state.workTimeLength) * 60;
     return (
       <div>
           <h1>Pomodoro Timer</h1>
           <h3>{this.state.isBreakTime ? "Time to relax!" : "Time to work!"}</h3>
-          <Timer defaultLength={defaultLength}/>
+          <Timer
+            timeLeft={this.state.timeLeft}
+            isPaused={this.state.isPaused}
+            onPlayButtonClick={this.handlePlayButtonClick}
+            onResetButtonClick={this.handleResetButtonClick}/>
           <span>
             Work Length:
            <Incrementor
