@@ -1,17 +1,12 @@
 import React, { Component } from 'react';
 
 class Incrementor extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
     return (
       <div>
-        <button>&uarr;</button>
-        current value
-        <button>&darr;</button>
+        <button onClick={this.props.onIncrement}>&uarr;</button>
+        {this.props.value}
+        <button onClick={this.props.onDecrement}>&darr;</button>
       </div>
     )
   }
