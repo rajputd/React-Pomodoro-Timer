@@ -5,9 +5,19 @@ class Incrementor extends Component {
     const pointerEvents = this.props.changeable ? "auto" : "none";
     return (
       <div>
-        <button style={{pointerEvents: pointerEvents}} onClick={this.props.onIncrement}>&uarr;</button>
-        {this.props.value}
-        <button style={{pointerEvents: pointerEvents}} onClick={this.props.onDecrement}>&darr;</button>
+        <button
+          id={this.props.id + '-increment'}
+          style={{pointerEvents: pointerEvents}}
+          onClick={this.props.onIncrement}>
+            &uarr;
+        </button>
+        <p id={this.props.id + '-length'}>{this.props.value}</p>
+        <button
+          id={this.props.id + '-decrement'}
+          style={{pointerEvents: pointerEvents}}
+          onClick={this.props.onDecrement}>
+            &darr;
+        </button>
       </div>
     )
   }

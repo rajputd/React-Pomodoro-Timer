@@ -24,16 +24,21 @@ class App extends Component {
 
   incrementLength(lengthName) {
     let newState = {};
-    newState[lengthName] = this.state[lengthName] + 1;
+
+    //do not let users set a length greater than 60
+    if (this.state[lengthName] < 60) {
+      newState[lengthName] = this.state[lengthName] + 1;
+    }
+
     this.setState(newState, this.resetTimer);
   }
 
   decrementLength(lengthName) {
     let newState = {};
 
-    //do not let length drop below zero
-    if (this.state[lengthName] > 0) {
-        newState[lengthName] = this.state[lengthName] - 1;
+    //do not let length drop below one
+    if (this.state[lengthName] > 1) {
+      newState[lengthName] = this.state[lengthName] - 1;
     }
 
     this.setState(newState, this.resetTimer);
@@ -61,7 +66,10 @@ class App extends Component {
   }
 
   timerDone() {
-    this.setState({isBreakTime: !this.state.isBreakTime}, this.resetTimer);
+    this.setState({isBreakTime: !this.state.isBreakTime}, () => {
+        this.resetTimer();
+        this.startTimer();
+    });
   }
 
   tick() {
@@ -81,7 +89,7 @@ class App extends Component {
   }
 
   handleResetButtonClick() {
-    this.resetTimer();
+    this.setState({breakTimeLength: 5, workTimeLength: 25}, this.resetTimer);
   }
 
   render() {
@@ -89,24 +97,26 @@ class App extends Component {
     return (
       <div>
           <h1>Pomodoro Timer</h1>
-          <h3>{this.state.isBreakTime ? "Time to relax!" : "Time to work!"}</h3>
+          <h3 id="timer-label">{this.state.isBreakTime ? "Time to relax!" : "Time to work!"}</h3>
           <Timer
             timeLeft={this.state.timeLeft}
             isPaused={this.state.isPaused}
             onPlayButtonClick={this.handlePlayButtonClick}
             onResetButtonClick={this.handleResetButtonClick}/>
-          <span>
+          <span id="session-label">
             Work Length:
            <Incrementor
+            id="session"
             changeable={this.state.isPaused}
             value={this.state.workTimeLength}
             onIncrement={this.incrementLength.bind(this, 'workTimeLength')}
             onDecrement={this.decrementLength.bind(this, 'workTimeLength')}
             />
           </span>
-          <span>
+          <span id="break-label">
             Break Length:
             <Incrementor
+              id="break"
               changeable={this.state.isPaused}
               value={this.state.breakTimeLength}
               onIncrement={this.incrementLength.bind(this, 'breakTimeLength')}

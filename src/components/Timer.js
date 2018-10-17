@@ -22,9 +22,17 @@ class Timer extends Component {
 
     return (
       <div>
-        <div>{minutesLeft}:{secondsLeft}</div>
-        <button onClick={this.props.onPlayButtonClick}>{playButtonSymbol}</button>
-        <button onClick={this.props.onResetButtonClick}>restart</button>
+        <div id="time-left">{minutesLeft}:{secondsLeft}</div>
+        <button
+          id="start_stop"
+          onClick={this.props.onPlayButtonClick}>
+            {playButtonSymbol}
+        </button>
+        <button
+          id="reset"
+          onClick={this.props.onResetButtonClick}>
+            restart
+          </button>
       </div>
     );
   }
