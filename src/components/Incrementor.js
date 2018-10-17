@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 
 class Incrementor extends Component {
   render() {
+    const pointerEvents = this.props.changeable ? "auto" : "none";
     return (
       <div>
-        <button onClick={this.props.onIncrement}>&uarr;</button>
+        <button style={{pointerEvents: pointerEvents}} onClick={this.props.onIncrement}>&uarr;</button>
         {this.props.value}
-        <button onClick={this.props.onDecrement}>&darr;</button>
+        <button style={{pointerEvents: pointerEvents}} onClick={this.props.onDecrement}>&darr;</button>
       </div>
     )
   }

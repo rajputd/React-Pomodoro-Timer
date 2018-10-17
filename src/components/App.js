@@ -23,7 +23,7 @@ class App extends Component {
   incrementLength(lengthName) {
     let newState = {};
     newState[lengthName] = this.state[lengthName] + 1;
-    this.setState(newState);
+    this.setState(newState, this.resetTimer);
   }
 
   decrementLength(lengthName) {
@@ -34,7 +34,7 @@ class App extends Component {
         newState[lengthName] = this.state[lengthName] - 1;
     }
 
-    this.setState(newState);
+    this.setState(newState, this.resetTimer);
   }
 
   startTimer() {
@@ -81,6 +81,7 @@ class App extends Component {
   }
 
   render() {
+    const pointerEvents = this.state.isPaused ? 'auto' : 'none';
     return (
       <div>
           <h1>Pomodoro Timer</h1>
@@ -93,6 +94,7 @@ class App extends Component {
           <span>
             Work Length:
            <Incrementor
+            changeable={this.state.isPaused}
             value={this.state.workTimeLength}
             onIncrement={this.incrementLength.bind(this, 'workTimeLength')}
             onDecrement={this.decrementLength.bind(this, 'workTimeLength')}
@@ -101,6 +103,7 @@ class App extends Component {
           <span>
             Break Length:
             <Incrementor
+              changeable={this.state.isPaused}
               value={this.state.breakTimeLength}
               onIncrement={this.incrementLength.bind(this, 'breakTimeLength')}
               onDecrement={this.decrementLength.bind(this, 'breakTimeLength')}
